@@ -15,3 +15,4 @@
 /log/*.log
 /tmp
 /.idea
+/config/app_level_constants/constants_development.rb

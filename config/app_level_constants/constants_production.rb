@@ -1,8 +1,8 @@
 VK_CONFIG   = {
-    app_id: '3842576',
-    app_secret: 'i9UkhOceNvIvvBodcK3a'
+    app_id: ENV['VK_APP_ID'],
+    app_secret: ENV['VK_APP_SECRET']
 }
-VK_TOKEN = '4cfe1bde1ec1d7d12fc2f8b0b42305661d22ec806bf27e1809bdca7302ff7bc9fe73211b3545c30224330'
+VK_TOKEN = ENV['VK_TOKEN']
 VK_GROUPS = %w{
     http://vk.com/tele2
     http://vk.com/tele2arh
