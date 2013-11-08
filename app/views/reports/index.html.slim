@@ -1,0 +1,12 @@
+table.table.table-striped
+  tr
+    th Группа
+    th Лайки
+    th Комментарии
+    th Репосты
+  - @groups.each do |group|
+    tr
+      td= link_to group.screen_name, group.url, target: :blank
+      td= group.likes_count
+      td= group.comments_count
+      td= group.reposts_count
