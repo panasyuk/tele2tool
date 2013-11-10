@@ -5,6 +5,8 @@ class Group < ActiveRecord::Base
   validates :url, format: {with: /(http(s)?:\/\/)?vk.com\/\w+(\/)?/}, presence: true
   validates :screen_name, uniqueness: true, presence: true
 
+  default_scope -> { order 'screen_name ASC' }
+
   def self.make_report from, to
     joins(:reports)
     .where('reports.date BETWEEN ? AND ?', from, to)
