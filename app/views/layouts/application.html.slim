@@ -41,13 +41,14 @@ html lang="en"
         .span3
           .well.sidebar-nav
             h3 Фильтр
-            = form_tag '/', method: :get do
+            = form_tag '/', method: :get, id: 'filter' do
               .nav-header Начиная с
               = text_field_tag 'date_from', controller.date_from
               .nav-header до
               = text_field_tag 'date_to', controller.date_to
+              = hidden_field_tag :format, :html
               = submit_tag 'Применить', class: [:btn, 'btn-primary', 'btn-block']
-              = submit_tag 'Скачать XLS', class: [:btn, 'btn-success', 'btn-block'], disabled: true
+              = button_to_function 'Скачать XLS', 'downloadXLS();',class: [:btn, 'btn-success', 'btn-block']
         .span9
           = bootstrap_flash
           = yield

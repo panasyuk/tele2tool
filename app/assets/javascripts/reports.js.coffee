@@ -2,6 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+@downloadXLS = ()->
+  $('#format').val 'xls'
+  $('#filter').submit()
+  $('#format').val 'html'
+
 $ ->
   datepickerFormat = {dateFormat: 'yy-mm-dd'}
   $('#date_to').datepicker(datepickerFormat)
