@@ -41,6 +41,10 @@ gem 'jquery-ui-rails'
 #XLS
 gem 'to_xls-rails'
 
+#Heroku assets
+group :production do
+  gem 'rails_12factor'
+end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
