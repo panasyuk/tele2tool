@@ -1,0 +1,17 @@
+.span12
+  h1
+    = link_to report_path(@reports.first.to_date, format: :xls), class: 'xls-link' do
+      = image_tag '/assets/xls.png'
+    | Отчет по группам c #{@reports.first.from_date} по #{@reports.first.to_date}
+  table.table.table-striped
+    tr
+      th Группа
+      th Лайки
+      th Комментарии
+      th Репосты
+    - @reports.each do |report|
+      tr
+        td= link_to report.group_screen_name, report.group_url, target: :blank
+        td= report.likes_count
+        td= report.comments_count
+        td= report.reposts_count

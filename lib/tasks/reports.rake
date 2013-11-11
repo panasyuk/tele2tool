@@ -1,11 +1,18 @@
 namespace :reports do
   desc "Собрает отчеты только за прошлый месяц. Для получения достоверных данных необходимо запускать первого числа каждого месяца."
   task :last_month => :environment do
+
+    if Date.today.day != 1 && !ENV['DATE']
+      puts 'Today is not the first day of month!'
+      return
+    end
+
     puts "Loading last month reports"
-    what_date = ENV['DATE'] ? Date.parse(ENV['DATE']) : Date.today
+    what_date = Date.today
     last_month_to = what_date.beginning_of_month
     last_month_from = last_month_to.last_month
     load_reports last_month_from.to_time.to_i, last_month_to.to_time.to_i
+
   end
 
   def load_reports from, to
@@ -31,7 +38,7 @@ namespace :reports do
         end
         page +=1
       end while posts.count == offset && !time_is_up
-      report.save
+      report.save if report.new_record?
       puts "#{report.likes_count} likes, #{report.reposts_count} reposts, #{report.comments_count} comments"
     end
   end

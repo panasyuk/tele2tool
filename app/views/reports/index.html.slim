@@ -1,12 +1,18 @@
-table.table.table-striped
-  tr
-    th Группа
-    th Лайки
-    th Комментарии
-    th Репосты
-  - @groups.each do |group|
+.span3
+  .well.sidebar-nav
+    h3 Фильтр отчетов
+    = form_tag '/', method: :get, id: 'filter' do
+      .nav-header Начиная с
+      = text_field_tag 'date_from', controller.date_from
+      .nav-header до
+      = text_field_tag 'date_to', controller.date_to
+      = submit_tag 'Применить', class: [:btn, 'btn-primary', 'btn-block']
+.span9
+  table.table.table-striped
     tr
-      td= link_to group.screen_name, group.url, target: :blank
-      td= group.likes_count
-      td= group.comments_count
-      td= group.reposts_count
+      th Дата отчета
+      th
+    - @dates.each do |date|
+      tr
+        td= link_to date, report_path(date)
+        td= button_to 'XLS', report_path(date, format: :xls), method: :get, class: [:btn, 'btn-success']

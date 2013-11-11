@@ -4,6 +4,7 @@ Tele2::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'reports#index'
+  get 'reports/:to_date' => 'reports#show', as: :report
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -29,26 +29,12 @@ html lang="en"
             span.icon-bar
             span.icon-bar
           a.brand href="#"Tele2 Social Tool
-          //.container.nav-collapse
+          .container.nav-collapse
             ul.nav
-              li= link_to "Link 1", "/path1"
-              li= link_to "Link 2", "/path2"
-              li= link_to "Link 3", "/path3"
+              li= link_to "Отчеты", root_path
 
     .container
 
       .row
-        .span3
-          .well.sidebar-nav
-            h3 Фильтр
-            = form_tag '/', method: :get, id: 'filter' do
-              .nav-header Начиная с
-              = text_field_tag 'date_from', controller.date_from
-              .nav-header до
-              = text_field_tag 'date_to', controller.date_to
-              = hidden_field_tag :format, :html
-              = submit_tag 'Применить', class: [:btn, 'btn-primary', 'btn-block']
-              = button_to_function 'Скачать XLS', 'downloadXLS();',class: [:btn, 'btn-success', 'btn-block']
-        .span9
-          = bootstrap_flash
-          = yield
+        = bootstrap_flash
+        = yield
