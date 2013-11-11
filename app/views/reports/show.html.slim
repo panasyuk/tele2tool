@@ -3,7 +3,7 @@
     = link_to report_path(@reports.first.to_date, format: :xls), class: 'xls-link' do
       = image_tag 'xls.png'
     | Отчет по группам c #{@reports.first.from_date} по #{@reports.first.to_date}
-  table.table.table-striped
+  table.table.table-striped.table-condensed
     tr
       th Группа
       th Лайки
