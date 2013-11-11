@@ -8,7 +8,7 @@ namespace :reports do
     end
 
     puts "Loading last month reports"
-    what_date = Date.today
+    what_date = ENV['DATE'] ?  Date.parse(ENV['DATE']) : Date.today
     last_month_to = what_date.beginning_of_month
     last_month_from = last_month_to.last_month
     load_reports last_month_from.to_time.to_i, last_month_to.to_time.to_i
