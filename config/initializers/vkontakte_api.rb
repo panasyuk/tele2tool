@@ -1,8 +1,8 @@
 VkontakteApi.configure do |config|
   # Authorization parameters (not needed when using an external authorization):
-  config.app_id       = '3980459'
-  config.app_secret   = 'geKiL7LUHXSoUjaHar5N'
-  config.redirect_uri = 'http://oauth.vk.com/blank.html'
+  config.app_id       = '3989515'
+  config.app_secret   = 'yThCTlvaHIF31iaEbYSY'
+  config.redirect_uri = 'http://127.0.0.1:3000/callback'
   
   # Faraday adapter to make requests with:
   # config.adapter = :net_http

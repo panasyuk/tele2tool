@@ -6,6 +6,10 @@ Tele2::Application.routes.draw do
   root 'reports#index'
   get 'reports/:to_date' => 'reports#show', as: :report
 
+  get 'login' => 'sessions#new', as: :vk_login
+  get 'logout' => 'sessions#destroy', as: :vk_logout
+  get 'callback' => 'sessions#callback', as: :vk_callback
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
