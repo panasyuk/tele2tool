@@ -20,6 +20,10 @@ class MagicArray
     end
   end
 
+  def all
+    self[0..(count-1)]
+  end
+
   def load_element index
     elements[index] = element_source index
   end

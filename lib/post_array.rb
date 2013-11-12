@@ -31,6 +31,15 @@ class PostArray < MagicArray
     self[till_index..from_index]
   end
 
+  def counts from, till
+    result = search from, till
+    {
+        likes_count: result.inject(0){|sum,post| sum+=post.likes[:count]},
+        comments_count: result.inject(0){|sum,post| sum+=post.comments[:count]},
+        reposts_count: result.inject(0){|sum,post| sum+=post.reposts[:count]}
+    }
+  end
+
   def bsearch &block
     first = 0
     last = count-1
