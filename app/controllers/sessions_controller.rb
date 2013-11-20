@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     srand
     session[:state] ||= Digest::MD5.hexdigest(rand.to_s)
     # и URL страницы авторизации
-    @vk_url = VkontakteApi.authorization_url(scope: [:friends, :offline], state: session[:state])
+    @vk_url = VkontakteApi.authorization_url(scope: [:wall, :friends], state: session[:state])
   end
 
   def callback
