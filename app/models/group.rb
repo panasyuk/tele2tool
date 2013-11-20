@@ -14,7 +14,7 @@ class Group < ActiveRecord::Base
   end
 
   def self.make_report from, till
-    select(
+    joins(:posts).select(
         'groups.*',
         'SUM(posts.likes_count) AS likes_count',
         'SUM(posts.comments_count) AS comments_count',
