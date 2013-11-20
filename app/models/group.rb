@@ -18,12 +18,10 @@ class Group < ActiveRecord::Base
         'groups.*',
         'SUM(posts.likes_count) AS likes_count',
         'SUM(posts.comments_count) AS comments_count',
-        'SUM(posts.reposts_count) AS reposts_count',
-        'posts.*'
+        'SUM(posts.reposts_count) AS reposts_count'
     ).where(
         'posts.published_at' => from..till
     ).group(
-        'posts.id',
         'posts.group_id',
         'groups.id'
     )
