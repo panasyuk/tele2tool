@@ -6,13 +6,19 @@
       = text_field_tag 'date_from', controller.date_from
       .nav-header до
       = text_field_tag 'date_to', controller.date_to
+      = hidden_field_tag 'format', 'html'
       = submit_tag 'Применить', class: [:btn, 'btn-primary', 'btn-block']
+      = button_to_function 'XLS', 'downloadXLS();', class: [:btn, 'btn-success', 'btn-block']
 .span9
   table.table.table-striped
     tr
-      th Дата отчета
-      th
-    - @dates.each do |date|
+      th Группа
+      th Лайки
+      th Репосты
+      th Комметарии
+    - @groups.each do |group|
       tr
-        td= link_to date, report_path(date)
-        td= button_to 'XLS', report_path(date, format: :xls), method: :get, class: [:btn, 'btn-success']
+        td= link_to group.screen_name, group_path(group, date_from: date_from, date_to: date_to)
+        td= group.likes_count
+        td= group.reposts_count
+        td= group.comments_count

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131111042640) do
+ActiveRecord::Schema.define(version: 20131120021444) do
 
   create_table "groups", force: true do |t|
     t.string   "url"
@@ -22,6 +22,23 @@ ActiveRecord::Schema.define(version: 20131111042640) do
   end
 
   add_index "groups", ["screen_name"], name: "index_groups_on_screen_name", unique: true, using: :btree
+
+  create_table "posts", force: true do |t|
+    t.integer  "vk_id"
+    t.integer  "likes_count",    default: 0
+    t.integer  "reposts_count",  default: 0
+    t.integer  "comments_count", default: 0
+    t.string   "type"
+    t.integer  "author_id"
+    t.text     "text"
+    t.datetime "published_at"
+    t.integer  "group_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "posts", ["published_at", "group_id"], name: "index_posts_on_published_at_and_group_id", using: :btree
+  add_index "posts", ["vk_id"], name: "index_posts_on_vk_id", unique: true, using: :btree
 
   create_table "reports", force: true do |t|
     t.integer  "likes_count",    default: 0

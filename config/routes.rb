@@ -4,7 +4,10 @@ Tele2::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'reports#index'
+  get 'reports' => 'reports#index', as: :reports
   get 'reports/:to_date' => 'reports#show', as: :report
+
+  resources :groups
 
   get 'login' => 'sessions#new', as: :vk_login
   get 'logout' => 'sessions#destroy', as: :vk_logout

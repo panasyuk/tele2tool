@@ -1,0 +1,6 @@
+.span4
+.span3
+  = image_tag 'vk.png', style: 'margin-bottom: 30px;'
+  = form_for @group do |t|
+    = t.text_field :url, placeholder: 'Введите адрес новой группы', class: 'input-block-level'
+    = t.submit 'Создать', class: [:btn, 'btn-block', 'btn-primary']

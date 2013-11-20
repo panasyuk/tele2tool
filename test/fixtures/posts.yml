@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  vk_id: 1
+  likes_count: 1
+  reposts_count: 1
+  comments_count: 1
+  type: 
+  author_id: 1
+  text: MyText
+  published_at: 2013-11-20 10:14:44
+
+two:
+  vk_id: 1
+  likes_count: 1
+  reposts_count: 1
+  comments_count: 1
+  type: 
+  author_id: 1
+  text: MyText
+  published_at: 2013-11-20 10:14:44
