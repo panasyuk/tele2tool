@@ -28,6 +28,25 @@ class Group < ActiveRecord::Base
   end
 
   def self.make_xls_report from, till
+    relation = joins(:posts).select(
+        'groups.*',
+        'SUM(posts.likes_count) AS likes_count',
+        'SUM(posts.comments_count) AS comments_count',
+        'SUM(posts.reposts_count) AS reposts_count'
+    ).where(
+        'posts.published_at' => from..till
+    ).group(
+        'posts.group_id',
+        'groups.id'
+    ).order('groups.screen_name ASC')
+    xls = Axlsx::Package.new
+    time_style = xls.workbook.styles.add_style :num_fmt => Axlsx::NUM_FMT_YYYYMMDDHHMMSS
+    sheet = xls.workbook.add_worksheet name: 'Статистика'
+    sheet.add_row ['группа', 'лайки', 'комментарии', 'репосты']
+    relation.each_with_index do |group, index|
+      sheet.add_row [group.screen_name, group.likes_count, group.comments_count, group.reposts_count]
+      sheet.add_hyperlink :location => "##{group.screen_name}", :ref => "A#{index+2}"
+    end
     relation = includes(:posts)
     .where(
         'posts.published_at' => from..till
@@ -35,18 +54,10 @@ class Group < ActiveRecord::Base
         'posts.id',
         'posts.group_id',
         'groups.id'
-    ).order('groups.screen_name || posts.published_at DESC').references(:posts)
-    xls = Axlsx::Package.new
-    time_style = xls.workbook.styles.add_style :num_fmt => Axlsx::NUM_FMT_YYYYMMDDHHMMSS
-    sheet = xls.workbook.add_worksheet name: 'Статистика'
-    sheet.add_row ['группа', 'лайки', 'комментарии', 'репосты']
-    relation.each_with_index do |group, index|
-      sheet.add_row [group.screen_name, group.posts.likes_count, group.posts.comments_count, group.posts.reposts_count]
-      sheet.add_hyperlink :location => "##{group.screen_name}", :ref => "A#{index+2}"
-    end
+    ).order('posts.published_at DESC').references(:posts)
     relation.each do |group|
       sheet = xls.workbook.add_worksheet name: group.screen_name
-      sheet.add_row ['Дата', 'Ссылка', 'Текст', 'Кол-во лайков', 'Кол-во комментариев', 'Кол-во репостов']
+      sheet.add_row ['Дата', 'Текст', 'Кол-во лайков', 'Кол-во комментариев', 'Кол-во репостов']
       posts_count = 1
       group.posts.each do |post|
         posts_count+=1
