@@ -35,19 +35,31 @@ class Group < ActiveRecord::Base
         'posts.id',
         'posts.group_id',
         'groups.id'
-    ).references(:posts)
+    ).order('groups.screen_name || posts.published_at DESC').references(:posts)
     xls = Axlsx::Package.new
+    time_style = xls.workbook.styles.add_style :num_fmt => Axlsx::NUM_FMT_YYYYMMDDHHMMSS
     sheet = xls.workbook.add_worksheet name: 'Статистика'
     sheet.add_row ['группа', 'лайки', 'комментарии', 'репосты']
-    relation.each do |group|
+    relation.each_with_index do |group, index|
       sheet.add_row [group.screen_name, group.posts.likes_count, group.posts.comments_count, group.posts.reposts_count]
+      sheet.add_hyperlink :location => "##{group.screen_name}", :ref => "A#{index+2}"
     end
     relation.each do |group|
       sheet = xls.workbook.add_worksheet name: group.screen_name
-      sheet.add_row ['Дата', 'Текст', 'Кол-во лайков', 'Кол-во комментариев', 'Кол-во репостов']
+      sheet.add_row ['Дата', 'Ссылка', 'Текст', 'Кол-во лайков', 'Кол-во комментариев', 'Кол-во репостов']
+      posts_count = 1
       group.posts.each do |post|
-        sheet.add_row [post.published_at, post.text, post.likes_count, post.comments_count, post.reposts_count]
+        posts_count+=1
+        sheet.add_row [post.published_at, post.text.gsub(/<\/?[^>]+?>/, ''), post.likes_count, post.comments_count, post.reposts_count], style: [time_style, nil, nil, nil, nil]
+        sheet.add_hyperlink :location => "#{group.url}?w=wall-#{group.gid}_#{post.vk_id}", :ref => "B#{posts_count}"
       end
+
+      sheet.add_row [nil, nil, "=SUM(C2:C#{posts_count})", "=SUM(D2:D#{posts_count})", "=SUM(E2:E#{posts_count})"]
+      sheet.column_info[0].width=17
+      sheet.column_info[1].width=50
+      sheet.column_info[2].width=12
+      sheet.column_info[3].width=18
+      sheet.column_info[4].width=13
     end
     xls
   end
