@@ -1,6 +1,5 @@
 class Group < ActiveRecord::Base
 
-  has_many :reports, dependent: :destroy
   has_many :posts, dependent: :destroy
 
   validates :url, format: {with: /(http(s)?:\/\/)?vk.com\/\w+(\/)?/}, presence: true
@@ -57,12 +56,11 @@ class Group < ActiveRecord::Base
     ).order('posts.published_at DESC').references(:posts)
     relation.each do |group|
       sheet = xls.workbook.add_worksheet name: group.screen_name
-      sheet.add_row ['Дата', 'Текст', 'Кол-во лайков', 'Кол-во комментариев', 'Кол-во репостов']
+      sheet.add_row ['Дата', 'Текст', 'Кол-во лайков', 'Кол-во комментариев', 'Кол-во репостов', 'URL']
       posts_count = 1
       group.posts.each do |post|
         posts_count+=1
-        sheet.add_row [post.published_at, post.text.gsub(/<\/?[^>]+?>/, ''), post.likes_count, post.comments_count, post.reposts_count], style: [time_style, nil, nil, nil, nil]
-        sheet.add_hyperlink :location => "#{group.url}?w=wall-#{group.gid}_#{post.vk_id}", :ref => "B#{posts_count}"
+        sheet.add_row [post.published_at, post.text.gsub(/<\/?[^>]+?>/, ''), post.likes_count, post.comments_count, post.reposts_count, "#{group.url}?w=wall-#{group.gid}_#{post.vk_id}"], style: [time_style, nil, nil, nil, nil, nil]
       end
 
       sheet.add_row [nil, nil, "=SUM(C2:C#{posts_count})", "=SUM(D2:D#{posts_count})", "=SUM(E2:E#{posts_count})"]

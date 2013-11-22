@@ -26,6 +26,12 @@ class GroupsController < ApplicationController
     @posts = @posts.order('published_at DESC').page params[:page]
   end
 
+  def destroy
+    @group = Group.find params[:id]
+    @group.destroy
+    redirect_to :back
+  end
+
   private
 
     def group_params
