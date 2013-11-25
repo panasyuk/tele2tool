@@ -27,6 +27,7 @@ class Group < ActiveRecord::Base
   end
 
   def self.make_xls_report from, till
+    till+=1
     relation = joins(:posts).select(
         'groups.*',
         'SUM(posts.likes_count) AS likes_count',
