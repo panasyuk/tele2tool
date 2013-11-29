@@ -13,7 +13,7 @@ h3
 - @posts.each do |post|
  .post
    .date= link_to post.published_at, "http://vk.com/feed?w=wall#{post.author_id}_#{post.vk_id}", target: :blank
-   .text=raw post.text
+   .text= vk_post post.text
    .likes-count.icon-heart= post.likes_count
    .comments-count.icon-comment= post.comments_count
    .reposts-count.icon-retweet= post.reposts_count

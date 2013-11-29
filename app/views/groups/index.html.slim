@@ -16,3 +16,4 @@ table.table.table-striped.table-condensed
       td= group.posts.comments_count
       td= link_to group_path(group), method: :delete, confirm: 'Желаете удалить эту группу статистику постов?' do
         span.icon-remove
+= paginate @groups
