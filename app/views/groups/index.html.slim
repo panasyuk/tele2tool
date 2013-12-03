@@ -2,18 +2,10 @@
 table.table.table-striped.table-condensed
   tr
     th Название
-    th Всего постов
-    th Всего лайков
-    th Всего репостов
-    th Всего комментариев
     th
   - @groups.each do |group|
     tr
       td= group.screen_name
-      td= group.posts.count
-      td= group.posts.likes_count
-      td= group.posts.reposts_count
-      td= group.posts.comments_count
       td= link_to group_path(group), method: :delete, confirm: 'Желаете удалить эту группу статистику постов?' do
         span.icon-remove
 = paginate @groups
