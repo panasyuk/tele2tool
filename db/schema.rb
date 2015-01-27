@@ -13,7 +13,10 @@
 
 ActiveRecord::Schema.define(version: 20131122043154) do
 
-  create_table "groups", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "groups", force: :cascade do |t|
     t.string   "url"
     t.string   "screen_name"
     t.datetime "created_at"
@@ -23,7 +26,7 @@ ActiveRecord::Schema.define(version: 20131122043154) do
 
   add_index "groups", ["screen_name"], name: "index_groups_on_screen_name", unique: true, using: :btree
 
-  create_table "posts", force: true do |t|
+  create_table "posts", force: :cascade do |t|
     t.integer  "vk_id"
     t.integer  "likes_count",    default: 0
     t.integer  "reposts_count",  default: 0

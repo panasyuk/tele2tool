@@ -10,3 +10,4 @@ $ ->
   datepickerFormat = {dateFormat: 'yy-mm-dd'}
   $('#date_to').datepicker(datepickerFormat)
   $('#date_from').datepicker(datepickerFormat)
+  $('#btn-download-xls').on('click', downloadXLS)
