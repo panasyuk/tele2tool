@@ -4,24 +4,22 @@
 @import "font-awesome";
 
 #reportrange {
-  cursor: pointer;
   margin-left: 8px;
-  color: #337ab7;
   border-bottom: 1px dashed;
+}
+
+#btn-download-xls {
+  margin-left: 14px;
+  cursor: pointer;
+}
+
+#reportrange, #btn-download-xls {
+  color: #337ab7;
+  cursor: pointer;
 
   &:hover {
     color: #23527c;
   }
-}
-
-.pagination .page.disabled {
-    float: left;
-    padding: 4px 12px;
-    line-height: 20px;
-    text-decoration: none;
-    background-color: #ffffff;
-    border: 1px solid #dddddd;
-    border-left-width: 0;
 }
 
 .post{
@@ -30,9 +28,4 @@
     float: right;
     margin: 3px;
   }
-}
-
-.xls-link{
-  margin-top: 10px;
-  margin-right: 20px;
 }

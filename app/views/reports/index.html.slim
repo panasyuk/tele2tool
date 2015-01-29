@@ -1,20 +1,17 @@
-/ .col-xs-3
-/   .well.sidebar-nav
-/     h3 Фильтр отчетов
-/     = form_tag '/', method: :get, id: 'filter' do
-/       .nav-header Начиная с
 /       = text_field_tag 'date_from', controller.date_from
-/       .nav-header до
 /       = text_field_tag 'date_to', controller.date_to
-/       = hidden_field_tag 'format', 'html'
 /       = submit_tag 'Применить', class: [:btn, 'btn-primary', 'btn-block']
 /       button.btn.btn-success.btn-block#btn-download-xls XLS
 .col-xs-12
-  h3.text-center
-    | Статистика за период
-    / #{date_from} - #{date_to}
-    span#reportrange
-      span
+  = form_tag '/', method: :get, id: 'filter' do
+    = hidden_field_tag 'format', 'html'
+    = hidden_field_tag 'date_from', controller.date_from, id: 'date-from'
+    = hidden_field_tag 'date_to', controller.date_to, id: 'date-to'
+    h3.text-center
+      | Статистика за период
+      span#reportrange
+        span
+      i.fa.fa-file-excel-o#btn-download-xls
   table.table.table-striped
     tr
       th Группа
@@ -27,3 +24,7 @@
         td = group.likes_count
         td = group.reposts_count
         td = group.comments_count
+
+javascript:
+  window.dateFrom = "#{controller.date_from}";
+  window.dateTo = "#{controller.date_to}";

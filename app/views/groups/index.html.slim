@@ -1,11 +1,13 @@
-= button_to 'Создать группу', new_group_path, method: :get, class: [:btn, 'btn-primary']
-table.table.table-striped.table-condensed
-  tr
-    th Название
-    th
-  - @groups.each do |group|
+.col-xs-12
+  = link_to 'Создать группу', new_group_path, method: :get, class: [:btn, 'btn-primary']
+  br
+  br
+  table.table.table-striped.table-condensed
     tr
-      td= link_to group.screen_name, group_path(group)
-      td= link_to group_path(group), method: :delete, confirm: 'Желаете удалить эту группу статистику постов?' do
-        span.icon-remove
-= paginate @groups
+      th Название
+      th
+    - @groups.each do |group|
+      tr
+        td = link_to group.screen_name, group_path(group)
+        td = link_to group_path(group), method: :delete, confirm: 'Удалить эту группу?' do
+          i.icon-remove

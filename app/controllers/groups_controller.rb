@@ -14,7 +14,7 @@ class GroupsController < ApplicationController
   end
 
   def index
-    @groups = Group.all.page params[:page]
+    @groups = Group.all
   end
 
   def show
