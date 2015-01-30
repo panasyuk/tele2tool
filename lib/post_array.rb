@@ -26,9 +26,12 @@ class PostArray < MagicArray
   end
 
   def search from, till
-    from_index = (bsearch{ |post| post.date <= from }) - 1
+    from_index = (bsearch{ |post|
+      puts post.inspect
+      post.date <= from
+    })
     till_index = bsearch{ |post| post.date <= till }
-    self[till_index..from_index]
+    self[till_index..from_index-1]
   end
 
   def counts from, till
