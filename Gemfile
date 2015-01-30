@@ -21,6 +21,8 @@ gem 'unicorn-rails'
 gem 'sprockets-rails'
 gem 'quiet_assets'
 
+gem 'newrelic_rpm'
+
 # Heroku assets
 gem 'rails_12factor', group: :production
 
