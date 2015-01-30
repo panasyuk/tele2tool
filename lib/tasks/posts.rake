@@ -23,16 +23,18 @@ namespace :posts do
       beautyprint group_name_string+"searching posts (total: #{post_array.count})..."
       vk_posts = post_array.search from, till
       beautyprint "\r#{group_name_string}#{vk_posts.count} found"
-      vk_posts.each_with_index do |vk_post, index|
-        post = group.posts.find_or_initialize_by vk_id: vk_post.id
-        post.update_attributes comments_count:  vk_post.comments['count'],
-                               reposts_count:   vk_post.reposts['count'],
-                               likes_count:     vk_post.likes['count'],
-                               published_at:    Time.at(vk_post.date),
-                               author_id:       vk_post.from_id,
-                               type:            vk_post.type,
-                               text:            vk_post.text
-        beautyprint "\r#{group_name_string}processing #{(((index+1).to_f/vk_posts.count)*100).to_i}%"
+      if vk_posts.count
+        vk_posts.each_with_index do |vk_post, index|
+          post = group.posts.find_or_initialize_by vk_id: vk_post.id
+          post.update_attributes comments_count:  vk_post.comments['count'],
+                                 reposts_count:   vk_post.reposts['count'],
+                                 likes_count:     vk_post.likes['count'],
+                                 published_at:    Time.at(vk_post.date),
+                                 author_id:       vk_post.from_id,
+                                 type:            vk_post.type,
+                                 text:            vk_post.text
+          beautyprint "\r#{group_name_string}processing #{(((index+1).to_f/vk_posts.count)*100).to_i}%"
+      end
       end
       beautyprint "\r#{group_name_string}updated with #{vk_posts.count} #{'post'.pluralize vk_posts.count}\n"
     end
